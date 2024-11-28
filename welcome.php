@@ -87,7 +87,6 @@ $conn->close();
         /* General Styles */
         body {
             font-family: "Roboto Condensed", serif;
-            font-style: normal;
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
@@ -104,12 +103,57 @@ $conn->close();
 
         /* Navbar Styling */
         .navbar {
-            background-color: #586F7C;
+            background-color: #2c3e50;
             padding: 15px;
             text-align: center;
             color: #fff;
             font-size: 1.5em;
         }
+        /* sidebar and table */
+        .container{
+            display: flex;
+        }
+
+        /* sidebar styling */
+        .sidebar {
+            width: 200px;
+            background-color: #2c3e50;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .sidebar img {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            border-radius: 50%;
+        }
+
+        .sidebar .nav-links {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar .nav-links a {
+            padding: 15px 10px;
+            color: white;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            text-align: left;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar .nav-links a:hover {
+            background-color: #586F7C;
+        }
+
 
         /* Welcome Message */
         .welcome-message {
@@ -119,10 +163,12 @@ $conn->close();
         }
 
         .student-table {
-            margin: 50px auto;
+            margin-top: 50px;
+            margin-left: 200px;
             width: 90%;
-            max-width: 1000px;
+            max-width: 900px;
             border-collapse: collapse;
+
         }
 
         .student-table th, .student-table td {
@@ -178,28 +224,30 @@ $conn->close();
             background-color: white;
             padding: 20px;
             border-radius: 5px;
-            width: 400px;
+            width: 370px;
+            
         }
 
         .modal input[type="text"],
         .modal input[type="number"],
         .modal button {
-            width: 100%;
+            width: 95%;
             padding: 10px;
             margin: 10px 0;
             border-radius: 5px;
             border: 1px solid #ddd;
+            font-size: 13px;
         }
 
         .modal button {
-            background-color: #3498db;
+            background-color: #0A0908;
             color: white;
             cursor: pointer;
             font-size: 1.1em;
         }
 
         .modal button:hover {
-            background-color: #2980b9;
+            background-color: #655B53;
         }
 
         .close {
@@ -278,6 +326,21 @@ $conn->close();
     <button class="btn" onclick="document.getElementById('addStudentForm').style.display='block'">Add New Student</button>
 </div>
 
+<!-- Sidebar -->
+ <div class="container">
+<div class="sidebar">
+        <img src="logo.png" alt="Logo">
+        <h3>Fee Management</h3>
+        <div class="nav-links">
+            <a href="#">Dashboard</a>
+            <a href="#">Profile</a>
+            <a href="#">Courses</a>
+            <a href="#">Contact</a>
+            <a href="#">Analytics</a>
+            <a href="#">Help</a>
+        </div>
+    </div>
+
 <!-- Student List -->
 <h3 style="text-align:center;">Student List</h3>
 <table class="student-table">
@@ -311,7 +374,7 @@ $conn->close();
     </tr>
     <?php endforeach; ?>
 </table>
-
+</div>
 <!-- Add Student Form (Modal) -->
 <div id="addStudentForm" class="modal">
     <div class="modal-content">

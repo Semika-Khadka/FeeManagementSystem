@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         label {
-            font-size: 14px;
+            font-size: 16px;
             color: #0A0908;
             display: block;
             margin-bottom: 10px;

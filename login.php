@@ -37,7 +37,7 @@
         }
 
         label {
-            font-size: 14px;
+            font-size: 16px;
             color: #333;
             display: block;
             margin-bottom: 6px;
