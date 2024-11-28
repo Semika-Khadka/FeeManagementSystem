@@ -14,16 +14,16 @@ if (isset($_POST['addStudent'])) {
     $phone_number = $_POST['phone_number'];
     $address = $_POST['address'];
     $amount = $_POST['amount'];
-    $class = $_POST['class'];
-    $section = $_POST['section'];
+    $semester = $_POST['semester'];
+    $major = $_POST['major'];
     $roll_no = $_POST['roll_no'];
 
     // Prepare the SQL query to insert the student data
-    $sql = "INSERT INTO students (name, phone_number, address, amount, class, section, roll_no) 
+    $sql = "INSERT INTO students (name, phone_number, address, amount, semester, major, roll_no) 
             VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssss", $name, $phone_number, $address, $amount, $class, $section, $roll_no);
+    $stmt->bind_param("sssssss", $name, $phone_number, $address, $amount, $semester, $major, $roll_no);
 
     if ($stmt->execute()) {
         // Redirect to the same page to show the newly added student
@@ -57,12 +57,12 @@ if (isset($_POST['updateStudent'])) {
     $phone_number = $_POST['phone_number'];
     $address = $_POST['address'];
     $amount = $_POST['amount'];
-    $class = $_POST['class'];
-    $section = $_POST['section'];
+    $semester = $_POST['semester'];
+    $major = $_POST['major'];
     $roll_no = $_POST['roll_no'];
 
     // Update the student in the database
-    $sql = "UPDATE students SET name='$name', phone_number='$phone_number', address='$address', amount='$amount', class='$class', section='$section', roll_no='$roll_no' WHERE id='$id'";
+    $sql = "UPDATE students SET name='$name', phone_number='$phone_number', address='$address', amount='$amount', semester='$semester', major='$major', roll_no='$roll_no' WHERE id='$id'";
 
     if ($conn->query($sql) === TRUE) {
         echo "<script>alert('Student details updated successfully!'); window.location.href = 'welcome.php';</script>";
@@ -80,10 +80,14 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <style>
         /* General Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Roboto Condensed", serif;
+            font-style: normal;
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
@@ -100,7 +104,7 @@ $conn->close();
 
         /* Navbar Styling */
         .navbar {
-            background-color: #2c3e50;
+            background-color: #586F7C;
             padding: 15px;
             text-align: center;
             color: #fff;
@@ -128,7 +132,7 @@ $conn->close();
         }
 
         .student-table th {
-            background-color: #3498db;
+            background-color: #0A0908;
             color: white;
         }
 
@@ -141,7 +145,7 @@ $conn->close();
         }
 
         .btn {
-            background-color: #3498db;
+            background-color: #0A0908;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -153,7 +157,7 @@ $conn->close();
         }
 
         .btn:hover {
-            background-color: #2980b9;
+            background-color: #655B53;
         }
 
         /* Add Student Form (Modal) */
@@ -283,8 +287,8 @@ $conn->close();
         <th>Phone Number</th>
         <th>Address</th>
         <th>Amount</th>
-        <th>Class</th>
-        <th>Section</th>
+        <th>Semester</th>
+        <th>Major</th>
         <th>Roll No.</th>
         <th>Actions</th>
     </tr>
@@ -295,8 +299,8 @@ $conn->close();
         <td><?php echo $student['phone_number']; ?></td>
         <td><?php echo $student['address']; ?></td>
         <td><?php echo $student['amount']; ?></td>
-        <td><?php echo $student['class']; ?></td>
-        <td><?php echo $student['section']; ?></td>
+        <td><?php echo $student['semester']; ?></td>
+        <td><?php echo $student['major']; ?></td>
         <td><?php echo $student['roll_no']; ?></td>
         <td>
             <!-- Edit Button -->
@@ -318,8 +322,8 @@ $conn->close();
             <input type="text" name="phone_number" placeholder="Phone Number" required><br>
             <input type="text" name="address" placeholder="Address" required><br>
             <input type="number" name="amount" placeholder="Amount" required><br>
-            <input type="text" name="class" placeholder="Class" required><br>
-            <input type="text" name="section" placeholder="Section" required><br>
+            <input type="text" name="semester" placeholder="Semester" required><br>
+            <input type="text" name="major" placeholder="Major" required><br>
             <input type="number" name="roll_no" placeholder="Roll No." required><br>
             <button type="submit" name="addStudent">Add Student</button>
         </form>
@@ -350,8 +354,8 @@ $conn->close();
             <input type="text" id="editPhone" name="phone_number" placeholder="Phone Number" required><br>
             <input type="text" id="editAddress" name="address" placeholder="Address" required><br>
             <input type="number" id="editAmount" name="amount" placeholder="Amount" required><br>
-            <input type="text" id="editClass" name="class" placeholder="Class" required><br>
-            <input type="text" id="editSection" name="section" placeholder="Section" required><br>
+            <input type="text" id="editSemester" name="semester" placeholder="Semester" required><br>
+            <input type="text" id="editMajor" name="major" placeholder="Major" required><br>
             <input type="number" id="editRollNo" name="roll_no" placeholder="Roll No." required><br>
             <button type="submit" name="updateStudent">Save Changes</button>
         </form>
@@ -376,8 +380,8 @@ $conn->close();
             document.getElementById('editPhone').value = student.phone_number; // Ensures phone number is pre-filled
             document.getElementById('editAddress').value = student.address;
             document.getElementById('editAmount').value = student.amount;
-            document.getElementById('editClass').value = student.class;
-            document.getElementById('editSection').value = student.section;
+            document.getElementById('editSemester').value = student.semester;
+            document.getElementById('editMajor').value = student.major;
             document.getElementById('editRollNo').value = student.roll_no;
         } else {
             alert("Failed to fetch student details.");
@@ -407,8 +411,8 @@ $conn->close();
                     <p><strong>Phone Number:</strong> ${student.phone_number}</p>
                     <p><strong>Address:</strong> ${student.address}</p>
                     <p><strong>Amount:</strong> ₹${student.amount}</p>
-                    <p><strong>Class:</strong> ${student.class}</p>
-                    <p><strong>Section:</strong> ${student.section}</p>
+                    <p><strong>Semester:</strong> ${student.semester}</p>
+                    <p><strong>Major:</strong> ${student.major}</p>
                     <p><strong>Roll No:</strong> ${student.roll_no}</p>
                 `;
 

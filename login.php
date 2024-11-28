@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <style>
         /* General Styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: "Roboto Condensed", serif;
+            background: linear-gradient(to left, #A6B29D, #D8D8D8);
             margin: 0;
             padding: 0;
             display: flex;
@@ -58,7 +61,7 @@
         }
 
         button[type="submit"] {
-            background-color: #3498db;
+            background-color: #0A0908;
             color: white;
             padding: 14px;
             width: 100%;
@@ -70,7 +73,7 @@
         }
 
         button[type="submit"]:hover {
-            background-color: #2980b9;
+            background-color: #655B53;
         }
 
         .error-message {
@@ -86,7 +89,7 @@
         }
 
         .forgot-password a {
-            color: #3498db;
+            color: #0A0908;
             text-decoration: none;
         }
 
