@@ -109,6 +109,15 @@ $conn->close();
             color: #fff;
             font-size: 1.5em;
         }
+        /* logo */
+          .logo a{
+            font-size: 40px;
+            font-weight: 600;
+            color: #ddd;
+            padding-bottom: 50px;
+            padding-left: 15px;
+     }
+
         /* sidebar and table */
         .container{
             display: flex;
@@ -125,20 +134,15 @@ $conn->close();
             left: 0;
             display: flex;
             flex-direction: column;
-            padding: 20px;
-        }
-
-        .sidebar img {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto;
-            border-radius: 50%;
+            padding-top: 20px;
         }
 
         .sidebar .nav-links {
             margin-top: 30px;
             display: flex;
             flex-direction: column;
+            padding-top: 50px;
+            padding-left: 10px;
         }
 
         .sidebar .nav-links a {
@@ -205,6 +209,22 @@ $conn->close();
         .btn:hover {
             background-color: #655B53;
         }
+        
+        .actions{
+            display: inline-block;
+            background-color: #0A0908;
+            color: white;
+            padding: 10px 10px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1em;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .actions:hover{
+            background-color: #655B53;
+        }
 
         /* Add Student Form (Modal) */
         .modal {
@@ -222,10 +242,9 @@ $conn->close();
 
         .modal-content {
             background-color: white;
-            padding: 20px;
+            padding: 10px;
             border-radius: 5px;
-            width: 370px;
-            
+            width: 350px;
         }
 
         .modal input[type="text"],
@@ -244,6 +263,7 @@ $conn->close();
             color: white;
             cursor: pointer;
             font-size: 1.1em;
+            padding: 5px;
         }
 
         .modal button:hover {
@@ -329,15 +349,14 @@ $conn->close();
 <!-- Sidebar -->
  <div class="container">
 <div class="sidebar">
-        <img src="logo.png" alt="Logo">
-        <h3>Fee Management</h3>
+        <div class="logo"><a href="#">FeeTrack</a></div>
+        <!-- <h3>Fee Management</h3> -->
         <div class="nav-links">
             <a href="#">Dashboard</a>
             <a href="#">Profile</a>
             <a href="#">Courses</a>
             <a href="#">Contact</a>
-            <a href="#">Analytics</a>
-            <a href="#">Help</a>
+            <a href="#">About</a>
         </div>
     </div>
 
@@ -367,9 +386,10 @@ $conn->close();
         <td><?php echo $student['roll_no']; ?></td>
         <td>
             <!-- Edit Button -->
-            <button class="btn" onclick="openEditModal(<?php echo $student['id']; ?>)">Edit</button>
+            <button class="actions" onclick="openEditModal(<?php echo $student['id']; ?>)">Edit</button>
             <!-- Print Bill Button -->
-            <button class="btn" onclick="printBill(<?php echo $student['id']; ?>)">Print Bill</button>
+            <button class="actions" onclick="printBill(<?php echo $student['id']; ?>)">Print Bill</button>
+            <button class="actions" onclick="deleteBill(<?php echo $student['id']; ?>)">Delete</button>
         </td>
     </tr>
     <?php endforeach; ?>
@@ -473,7 +493,7 @@ $conn->close();
                     <p><strong>Name:</strong> ${student.name}</p>
                     <p><strong>Phone Number:</strong> ${student.phone_number}</p>
                     <p><strong>Address:</strong> ${student.address}</p>
-                    <p><strong>Amount:</strong> ₹${student.amount}</p>
+                    <p><strong>Amount:</strong> Rs.${student.amount}</p>
                     <p><strong>Semester:</strong> ${student.semester}</p>
                     <p><strong>Major:</strong> ${student.major}</p>
                     <p><strong>Roll No:</strong> ${student.roll_no}</p>
