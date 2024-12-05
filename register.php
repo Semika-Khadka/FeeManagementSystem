@@ -6,6 +6,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
+    $name = $_POST['name'];
+    $number = $_POST['number'];
+    $role = $_POST['role'];
 
     // Check if passwords match
     if ($password !== $confirm_password) {
@@ -21,18 +24,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->num_rows > 0) {
             $error_message = "Username already exists!";
         } else {
-            // Insert new user
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $insert_sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-            $insert_stmt = $conn->prepare($insert_sql);
-            $insert_stmt->bind_param("ss", $username, $hashed_password);
+            // Start a transaction
+            $conn->begin_transaction();
+            try {
+                // Insert new user
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $insert_user_sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+                $insert_user_stmt = $conn->prepare($insert_user_sql);
+                $insert_user_stmt->bind_param("ss", $username, $hashed_password);
 
-            if ($insert_stmt->execute()) {
+                if (!$insert_user_stmt->execute()) {
+                    throw new Exception("Error inserting user.");
+                }
+
+                // Get the inserted user ID
+                $user_id = $conn->insert_id;
+
+                // Insert profile into profiles table
+                $insert_profile_sql = "INSERT INTO profiles (user_id, name, number, role) VALUES (?, ?, ?, ?)";
+                $insert_profile_stmt = $conn->prepare($insert_profile_sql);
+                $insert_profile_stmt->bind_param("isss", $user_id, $name, $number, $role);
+
+                if (!$insert_profile_stmt->execute()) {
+                    throw new Exception("Error creating profile.");
+                }
+
+                // Commit the transaction
+                $conn->commit();
+
                 $_SESSION['success_message'] = "Registration successful! Please log in.";
                 header("Location: login.php");
                 exit;
-            } else {
-                $error_message = "Error registering user.";
+            } catch (Exception $e) {
+                // Rollback transaction on error
+                $conn->rollback();
+                $error_message = $e->getMessage();
             }
         }
 
@@ -145,6 +171,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="password" name="password" required>
             <label>Confirm Password:</label>
             <input type="password" name="confirm_password" required>
+            <label>Name:</label>
+            <input type="text" name="name" required>
+            <label>Number:</label>
+            <input type="text" name="number" required>
+            <label>Role:</label>
+            <input type="text" name="role" required>
             <button type="submit">Register</button>
         </form>
 
