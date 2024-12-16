@@ -120,9 +120,7 @@ $conn->close();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css">
-    <!-- <style>
-
-    </style> -->
+  
 </head>
 
 <body>
@@ -141,19 +139,16 @@ $conn->close();
     <!-- Sidebar -->
     <div class="container">
         <div class="sidebar">
-            <div class="logo"><a href="#">FeeTrack</a></div>
+            <div class="logo"><a href="./welcome.php">FeeTrack</a></div>
             <!-- <h3>Fee Management</h3> -->
             <div class="nav-links">
-                <a href="#">Dashboard</a>
+                <a href="./welcome.php">Dashboard</a>
                 <a href="./profile_screen.php">Profile</a>
-                <!-- <a href="#">Courses</a> -->
                 <a href="./contact__screen.php">Contact</a>
-                <!-- <a href="#">About</a> -->
-
+                 <!-- add view option -->
                 <form action="logout.php">
                     <input type="Submit" value="Logout">
                 </form>
-
             </div>
         </div>
 
