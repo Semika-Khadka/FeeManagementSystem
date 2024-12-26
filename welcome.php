@@ -120,8 +120,88 @@ $conn->close();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css">
-  
 </head>
+<style>
+
+.container-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 20px;
+  margin-left: 200px;
+  margin-right: 100px;
+  transition: margin-left 0.2s ease-in-out;
+  
+}
+.card-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: calc(25% - 20px); /* Adjusts for spacing */
+  min-width: 300px; /* Ensures cards don't shrink too much */
+  color: #fff;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card-box:hover {
+  transform: scale(1.05);
+}
+
+.icon {
+  font-size: 50px;
+  opacity: 0.8;
+}
+
+.inner h3 {
+  font-size: 24px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.inner p {
+  margin: 5px 0 0;
+  font-size: 14px;
+}
+
+.bg-blue {
+  background-color:rgb(33, 91, 171);
+}
+
+.bg-green {
+  background-color:rgb(22, 200, 64);
+}
+
+.bg-orange {
+  background-color:rgb(227, 196, 39);
+}
+
+.bg-red {
+  background-color:rgb(184, 31, 46);
+}
+.icon {
+    display: inline-block; 
+    width: 20px; /* Set your desired size */
+    height: 5px;
+    text-align: center;
+    line-height: 20px; 
+}
+.sidebar-link{
+    display: flex; 
+    align-items: center;
+
+}
+.sidebar-icon {
+  margin-right: 7px; 
+  width: 40px;   
+  height: 40px; 
+  vertical-align: middle;
+}
+    </style>
 
 <body>
 
@@ -130,10 +210,77 @@ $conn->close();
         Welcome, <?php echo $_SESSION['username']; ?>!
     </div>
 
+
+
     <!-- Welcome Message -->
     <div class="welcome-message">
         <h2>Student Management</h2>
-        <button class="btn" onclick="document.getElementById('addStudentForm').style.display='block'">Add New Student</button>
+        <!-- starting of the added code -->
+        <div class="container-cards">
+        <div class="col-lg-4 mb-2">
+            <div class="card-box bg-blue">
+                <div class="icon">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                </div>
+                <div class="inner">
+                <div class="icons">
+                    <img src="./images/student_icon.png">
+                    </div>
+                    <h3> 500 </h3>
+                    <p> Total Students </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card-box bg-green">
+                <div class="icon text-white">
+                    <i class="fa fa-certificate " aria-hidden="true"></i>
+                </div>
+                <div class="inner">
+                <div class="icons">
+                    <img src="./images/courses_icon.png">
+                    </div>
+                    <h3>1000 </h3>
+                    <p>Courses</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card-box bg-orange">
+                <div class="icon">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                </div>
+
+                <div class="inner">
+                <div class="icons">
+                    <img src="./images/adduser.png">
+                    </div>
+                    <h3> 500 </h3>
+                    <p>Admissions </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 ">
+            <div class="card-box bg-red">
+                <div class="icon">
+                    <i class="fa fa-users"></i>
+                </div>
+
+                <div class="inner">
+                    <div class="icons">
+                    <img src="./images/userswhite.png">
+                    </div>
+                    <h3>100</h3>
+                    <p>Users</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- ends the added one here -->
+    <button class="btn" onclick="document.getElementById('addStudentForm').style.display='block'">Add New Student</button>
     </div>
 
     <!-- Sidebar -->
@@ -142,12 +289,12 @@ $conn->close();
             <div class="logo"><a href="./welcome.php">FeeTrack</a></div>
             <!-- <h3>Fee Management</h3> -->
             <div class="nav-links">
-                <a href="./welcome.php">Dashboard</a>
-                <a href="./profile_screen.php">Profile</a>
-                <a href="./contact__screen.php">Contact</a>
-                 <!-- add view option -->
-                <form action="logout.php">
-                    <input type="Submit" value="Logout">
+                <a href="./welcome.php"><img class="sidebar-icon" src="./images/dashboardicon.png">Dashboard</a>
+                <a href="./profile_screen.php"><img class="sidebar-icon" src="./images/profile_icon.png">Profile</a>
+                <a href="./contact__screen.php"><img class="sidebar-icon" src="./images/contacticon.png">Contact</a>
+               
+                <form action="logout.php"><img class="sidebar-icon" src="./images/logout_icon.png">
+                    <input type="Submit" value="Logout">Logout
                 </form>
             </div>
         </div>
@@ -203,7 +350,7 @@ $conn->close();
                 <input type="text" name="address" placeholder="Address" required><br>
                 <input type="number" name="amount" placeholder="Amount" required><br>
                 <!-- <input type="number" name="semester" placeholder="Semester" required><br> -->
-                 
+
                 <select required name="semester">
                     <option selected disabled>Please select Semester</option>
                     <option value="1">1st</option>
@@ -253,7 +400,7 @@ $conn->close();
             <form action="welcome.php" method="POST">
                 <input type="hidden" id="editId" name="id"><br>
                 <input type="text" id="editName" name="name" placeholder="Name" required><br>
-                <input type="number" min="9700000000" max="9899999999"  id="editPhone" name="phone_number" placeholder="Phone Number" required><br>
+                <input type="number" min="9700000000" max="9899999999" id="editPhone" name="phone_number" placeholder="Phone Number" required><br>
                 <input type="text" id="editAddress" name="address" placeholder="Address" required><br>
                 <input type="number" id="editAmount" name="amount" placeholder="Amount" required><br>
                 <!-- <input type="number" id="editSemester" name="semester" placeholder="Semester" required><br> -->
