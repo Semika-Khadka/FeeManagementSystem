@@ -8,6 +8,21 @@ if (!isset($_SESSION['user_id'])) {
 
 include 'config.php';
 
+
+// Fetch the user's data to check if they are an admin
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT isAdmin FROM users WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+// Check if the user is an admin
+$isAdmin = $user['isAdmin'] ?? 0;
+
+
+
 if (isset($_POST['addStudent'])) {
     // Get the student details from the form
     $name = $_POST['name'];
@@ -41,8 +56,17 @@ if (isset($_POST['addStudent'])) {
 $sql = "SELECT * FROM students";
 $result = $conn->query($sql);
 
+$countSql = "SELECT COUNT(*) as total_students FROM students";
+$countResult = $conn->query($countSql);
+
+
 // Check if there are any students in the table
 $students = [];
+$total_students = 0;
+if ($countResult->num_rows > 0) {
+    $row = $countResult->fetch_assoc(); // Fetch the row
+    $total_students = $row['total_students']; // Access the 'total_students' alias
+}
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $students[] = $row;
@@ -146,7 +170,7 @@ $conn->close();
                 <div class="icons">
                     <img src="./images/student_icon.png">
                     </div>
-                    <h3> 500 </h3>
+                    <h3> <?php echo $total_students; ?> </h3>
                     <p> Total Students </p>
                 </div>
             </div>
@@ -198,9 +222,9 @@ $conn->close();
             </div>
         </div>
     </div>
+    <button class="btn" onclick="document.getElementById('addStudentForm').style.display='block'">Add New Student</button>
     </div>
     <!-- ends the added one here -->
-    <button class="btn" onclick="document.getElementById('addStudentForm').style.display='block'">Add New Student</button>
     </div>
 
     <!-- Sidebar -->
@@ -219,6 +243,9 @@ $conn->close();
         Logout
     </button>
 </form>
+<?php if ($isAdmin == 1): ?>
+        <a href="./register.php"><img class="sidebar-icon" src="./images/register.png">Register</a>
+    <?php endif; ?>
 
             </div>
         </div>
@@ -265,44 +292,49 @@ $conn->close();
     </div>
     <!-- Add Student Form (Modal) -->
     <div id="addStudentForm" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="document.getElementById('addStudentForm').style.display='none'">&times;</span>
-            <h3>Add New Student</h3>
-            <form action="welcome.php" method="POST">
-                <input type="text" name="name" placeholder="Name" required><br>
-                <input type="number" min="9700000000" max="9899999999" name="phone_number" placeholder="Phone Number" required><br>
-                <input type="text" name="address" placeholder="Address" required><br>
-                <input type="number" name="amount" placeholder="Amount" required><br>
-                <!-- <input type="number" name="semester" placeholder="Semester" required><br> -->
+    <div class="modal-content">
+        <span class="close" onclick="document.getElementById('addStudentForm').style.display='none'">&times;</span>
+        <h3>Add New Student</h3>
+        <form action="welcome.php" method="POST">
+            <input type="text" name="name" placeholder="Name" required><br>
+            
+            <input type="number" name="phone_number" placeholder="Phone Number" 
+                   required pattern="\d{10}" title="Enter a valid 10-digit phone number"><br>
+            
+            <input type="text" name="address" placeholder="Address" required><br>
+            
+            <input type="number" name="amount" placeholder="Amount" required min="0"><br>
 
-                <select required name="semester">
-                    <option selected disabled>Please select Semester</option>
-                    <option value="1">1st</option>
-                    <option value="2">2nd</option>
-                    <option value="3">3rd</option>
-                    <option value="4">4th</option>
-                    <option value="5">5th</option>
-                    <option value="6">6th</option>
-                    <option value="7">7th</option>
-                    <option value="8">8th</option>
-                </select>
-                <br>
-                <!-- <input type="text" name="major" placeholder="Major" required><br> -->
-                <select required name="major">
-                    <option selected disabled>Please select Major</option>
-                    <option value="BCA">BCA</option>
-                    <option value="BSCCSIT">BSCCSIT</option>
-                    <option value="BSW">BSW</option>
-                    <option value="BBS">BBS</option>
-                </select>
-                <br>
+            <select required name="semester">
+                <option selected disabled>Please select Semester</option>
+                <option value="1">1st</option>
+                <option value="2">2nd</option>
+                <option value="3">3rd</option>
+                <option value="4">4th</option>
+                <option value="5">5th</option>
+                <option value="6">6th</option>
+                <option value="7">7th</option>
+                <option value="8">8th</option>
+            </select>
+            <br>
+            
+            <select required name="major">
+                <option selected disabled>Please select Major</option>
+                <option value="BCA">BCA</option>
+                <option value="BSCCSIT">BSCCSIT</option>
+                <option value="BSW">BSW</option>
+                <option value="BBS">BBS</option>
+            </select>
+            <br>
 
-                <input type="number" name="roll_no" placeholder="Roll No." required><br>
-                <button type="submit" name="addStudent">Add Student</button>
-            </form>
-            <button class="btn" type="button" onclick="document.getElementById('addStudentForm').style.display='none'">Cancel</button>
-        </div>
+            <input type="number" name="roll_no" placeholder="Roll No." required min="1"><br>
+            
+            <button type="submit" name="addStudent">Add Student</button>
+        </form>
+        <button class="btn" type="button" onclick="document.getElementById('addStudentForm').style.display='none'">Cancel</button>
     </div>
+</div>
+
 
 
     <!-- Print Bill Modal -->

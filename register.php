@@ -52,8 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Commit the transaction
                 $conn->commit();
 
-                $_SESSION['success_message'] = "Registration successful! Please log in.";
-                header("Location: login.php");
+                $_SESSION['success_message'] = "Registration successful!.";
+                header("Location: welcome.php");
                 exit;
             } catch (Exception $e) {
                 // Rollback transaction on error
