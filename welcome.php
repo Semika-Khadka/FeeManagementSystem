@@ -119,89 +119,9 @@ $conn->close();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<style>
 
-.container-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 20px;
-  margin-left: 200px;
-  margin-right: 100px;
-  transition: margin-left 0.2s ease-in-out;
-  
-}
-.card-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: calc(25% - 20px); /* Adjusts for spacing */
-  min-width: 300px; /* Ensures cards don't shrink too much */
-  color: #fff;
-  transition: transform 0.2s ease-in-out;
-}
-
-.card-box:hover {
-  transform: scale(1.05);
-}
-
-.icon {
-  font-size: 50px;
-  opacity: 0.8;
-}
-
-.inner h3 {
-  font-size: 24px;
-  margin: 0;
-  font-weight: bold;
-}
-
-.inner p {
-  margin: 5px 0 0;
-  font-size: 14px;
-}
-
-.bg-blue {
-  background-color:rgb(33, 91, 171);
-}
-
-.bg-green {
-  background-color:rgb(22, 200, 64);
-}
-
-.bg-orange {
-  background-color:rgb(227, 196, 39);
-}
-
-.bg-red {
-  background-color:rgb(184, 31, 46);
-}
-.icon {
-    display: inline-block; 
-    width: 20px; /* Set your desired size */
-    height: 5px;
-    text-align: center;
-    line-height: 20px; 
-}
-.sidebar-link{
-    display: flex; 
-    align-items: center;
-
-}
-.sidebar-icon {
-  margin-right: 7px; 
-  width: 40px;   
-  height: 40px; 
-  vertical-align: middle;
-}
-    </style>
 
 <body>
 
@@ -289,13 +209,17 @@ $conn->close();
             <div class="logo"><a href="./welcome.php">FeeTrack</a></div>
             <!-- <h3>Fee Management</h3> -->
             <div class="nav-links">
-                <a href="./welcome.php"><img class="sidebar-icon" src="./images/dashboardicon.png">Dashboard</a>
-                <a href="./profile_screen.php"><img class="sidebar-icon" src="./images/profile_icon.png">Profile</a>
-                <a href="./contact__screen.php"><img class="sidebar-icon" src="./images/contacticon.png">Contact</a>
+                <a href="./welcome.php"><img class="sidebar-icon" src="./images/dashboardFFF.png">Dashboard</a>
+                <a href="./profile_screen.php"><img class="sidebar-icon" src="./images/profileFFF.png">Profile</a>
+                <a href="./contact__screen.php"><img class="sidebar-icon" src="./images/contactFFF.png">Contact</a>
                
-                <form action="logout.php"><img class="sidebar-icon" src="./images/logout_icon.png">
-                    <input type="Submit" value="Logout">Logout
-                </form>
+                <form action="logout.php" method="post">
+    <img class="sidebar-icon" src="./images/logoutFFF.png">
+    <button type="submit" style="background: none; border: none; color: inherit; text-decoration: none; cursor: pointer;">
+        Logout
+    </button>
+</form>
+
             </div>
         </div>
 
