@@ -72,6 +72,24 @@ if ($result->num_rows > 0) {
         $students[] = $row;
     }
 }
+//check the number of users in the system
+$sql = "SELECT * FROM students";
+$result = $conn->query($sql);
+
+$countSql = "SELECT COUNT(*) as total_users FROM users";
+$countResult = $conn->query($countSql);
+
+$users = [];
+$total_users= 0;
+if ($countResult->num_rows > 0) {
+    $row = $countResult->fetch_assoc(); // Fetch the row
+    $total_users = $row['total_users']; // Access the 'total_students' alias
+}
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $users[] = $row;
+    }
+}
 if (isset($_POST['updateStudent'])) {
     $id = $_POST['id'];
     $name = $_POST['name'];
@@ -143,7 +161,7 @@ $conn->close();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href=".\css\style.css?v=2">
 </head>
 
 
@@ -185,7 +203,7 @@ $conn->close();
                 <div class="icons">
                     <img src="./images/courses_icon.png">
                     </div>
-                    <h3>1000 </h3>
+                    <h3>4</h3>
                     <p>Courses</p>
                 </div>
             </div>
@@ -215,7 +233,7 @@ $conn->close();
                     <div class="icons">
                     <img src="./images/userswhite.png">
                     </div>
-                    <h3>100</h3>
+                    <h3><?php echo $total_users; ?> </h3>
                     <p>Users</p>
                 </div>
 
@@ -239,7 +257,11 @@ $conn->close();
                
                 <form action="logout.php" method="post">
     <img class="sidebar-icon" src="./images/logoutFFF.png">
-    <button type="submit" style="background: none; border: none; color: inherit; text-decoration: none; cursor: pointer;">
+    <button type="submit" class="logout-btn" style="background: none;
+    border: none;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;">
         Logout
     </button>
 </form>
