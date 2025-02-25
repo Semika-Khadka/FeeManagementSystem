@@ -161,7 +161,8 @@ $conn->close();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href=".\css\style.css?v=2">
+    <link rel="stylesheet" href="./css/style.css?v=1">
+
 </head>
 
 
@@ -363,7 +364,11 @@ $conn->close();
     <div id="printBillModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="document.getElementById('printBillModal').style.display='none'">&times;</span>
-            <h3>Print Bill</h3>
+            <h3>Student Bill</h3>
+            <div class="profile-section">
+            
+            <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic">
+        </div>
             <div id="billDetails"></div>
             <button class="print-btn" onclick="window.print()">Print Bill</button>
             <!-- Cancel Button -->
